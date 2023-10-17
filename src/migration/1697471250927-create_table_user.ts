@@ -3,21 +3,36 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class CreateTableUser1697471250927 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     queryRunner.query(`
-            CREATE TABLE user (
-                id INTEGER PRIMARY KEY NOT NULL UNIQUE,
-                name VARCHAR(30) NOT NULL,
-                email  VARCHAR(30) NOT NULL UNIQUE,
-                phone VARCHAR(15) NOT NULL,
-                password  VARCHAR(25) NOT NULL,
-                type_user INTEGER NOT NULL,
-                created_at TIMESTAMP NOT NULL,
-                updated_at TIMESTAMP NOT NULL);
-        `);
+          CREATE TABLE public.user (
+            id integer NOT NULL,
+            name character varying NOT NULL,
+            email  character varying NOT NULL,
+            cpf  character varying NOT NULL,
+            type_user int NOT NULL,
+            phone  character varying NOT NULL,
+            password  character varying NOT NULL,
+            created_at timestamp without time zone DEFAULT now() NOT NULL,
+            updated_at timestamp without time zone DEFAULT now() NOT NULL,
+            primary key (id)
+          );
+        
+          CREATE SEQUENCE public.user_id_seq
+              AS integer
+              START WITH 1
+              INCREMENT BY 1
+              NO MINVALUE
+              NO MAXVALUE
+              CACHE 1;
+              
+          ALTER SEQUENCE public.user_id_seq OWNED BY public.user.id;
+          
+          ALTER TABLE ONLY public.user ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     queryRunner.query(`
-            drop table user;
+            drop table public.user;
         `);
   }
 }
