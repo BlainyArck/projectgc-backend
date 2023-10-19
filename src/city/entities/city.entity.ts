@@ -1,5 +1,9 @@
-/* eslint-disable prettier/prettier */
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'city' })
 export class CityEntity {
@@ -14,7 +18,7 @@ export class CityEntity {
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-  
+
   @CreateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
