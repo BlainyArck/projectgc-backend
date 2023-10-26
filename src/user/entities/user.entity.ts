@@ -19,6 +19,9 @@ export class UserEntity {
   @Column({ name: 'phone' })
   phone: string;
 
+  @Column({ name: 'cpf', nullable: false })
+  cpf: string;
+
   @Column({ name: 'password', nullable: false })
   password: string;
 
