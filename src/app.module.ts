@@ -20,6 +20,7 @@ import { CacheModule } from './cache/cache.module';
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
       autoLoadEntities: true,
+      synchronize: true,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
       migrations: [`${__dirname}/migration{.ts,*.js}`],
       migrationsRun: true,
