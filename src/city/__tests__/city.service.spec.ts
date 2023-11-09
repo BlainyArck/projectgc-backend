@@ -6,7 +6,7 @@ import { CityEntity } from '../entities/city.entity';
 import { CacheService } from '../../cache/cache.service';
 import { cityMock } from '../__mocks__/city.mock';
 
-describe('StateService', () => {
+describe('CityService', () => {
   let service: CityService;
   let cityRepository: Repository<CityEntity>;
 
