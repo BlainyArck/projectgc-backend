@@ -84,16 +84,16 @@ export class UserService {
   }
 
   async updatePasswordUser(
-    UpdatePasswordDto: UpdatePasswordDto,
+    updatePasswordDto: UpdatePasswordDto,
     userId: number,
   ): Promise<UserEntity> {
     const user = await this.findUserById(userId);
     const passwordHashed = await createPasswordHashed(
-      UpdatePasswordDto.newPassword,
+      updatePasswordDto.newPassword,
     );
 
     const isMatch = await validatePassword(
-      UpdatePasswordDto.lastPassword,
+      updatePasswordDto.lastPassword,
       user.password || '',
     );
 
