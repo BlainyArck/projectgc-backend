@@ -14,7 +14,7 @@ import { UserEntity } from './entities/user.entity';
 import { ReturnUserDto } from './dtos/returnUser.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
 import { UserId } from '../decorators/user-id.decorator';
-import { Roles } from 'src/decorators/roles.decorator';
+import { Roles } from '../decorators/roles.decorator';
 import { UserType } from './enum/user-type.enum';
 
 @Controller('user')
