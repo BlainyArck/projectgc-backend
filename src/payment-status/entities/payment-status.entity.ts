@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'payment-status' })
+@Entity({ name: 'payment_status' })
 export class PaymentStatusEntity {
   @PrimaryGeneratedColumn('rowid')
   id: number;
