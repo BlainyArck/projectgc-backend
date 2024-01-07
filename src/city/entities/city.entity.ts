@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -30,7 +30,7 @@ export class CityEntity {
   @OneToMany(() => AddressEntity, (address) => address.city)
   addresses?: AddressEntity[];
 
-  @ManyToMany(() => StateEntity, (state) => state.cities)
+  @ManyToOne(() => StateEntity, (state) => state.cities)
   @JoinColumn({ name: 'state_id', referencedColumnName: 'id' })
   state?: StateEntity;
 }

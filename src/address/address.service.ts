@@ -32,7 +32,6 @@ export class AddressService {
       where: {
         userId,
       },
-      //Error: Cannot read properties of undefined (reading 'tablePath')
       relations: {
         city: {
           state: true,

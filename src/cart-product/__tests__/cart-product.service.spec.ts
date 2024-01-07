@@ -4,7 +4,7 @@ import { ProductService } from '../../product/product.service';
 import { Repository } from 'typeorm';
 import { CartProductEntity } from '../entities/cart-product.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { productMock } from '../../product/__mock__/product.mock';
+import { productMock } from '../../product/__mocks__/product.mock';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
 import { cartMock } from '../../cart/__mocks__/cart.mock';
 import { insertCartMock } from '../../cart/__mocks__/insert-cart.mock';

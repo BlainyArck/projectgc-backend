@@ -9,7 +9,7 @@ import { cartMock } from '../__mocks__/cart.mock';
 import { userEntityMock } from '../../user/__mocks__/user.mock';
 import { NotFoundException } from '@nestjs/common';
 import { insertCartMock } from '../__mocks__/insert-cart.mock';
-import { productMock } from '../../product/__mock__/product.mock';
+import { productMock } from '../../product/__mocks__/product.mock';
 import { updateCartMock } from '../__mocks__/update-cart.mock';
 
 describe('CartService', () => {

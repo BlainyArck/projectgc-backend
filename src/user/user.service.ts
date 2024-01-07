@@ -42,7 +42,6 @@ export class UserService {
       where: {
         id: userId,
       },
-      //Error: Cannot read properties of undefined (reading 'tablePath')
       relations: {
         addresses: {
           city: {

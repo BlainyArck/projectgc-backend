@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from '../product.controller';
 import { ProductService } from '../product.service';
-import { productMock } from '../__mock__/product.mock';
-import { createProductMock } from '../__mock__/create-product.mock';
+import { productMock } from '../__mocks__/product.mock';
+import { createProductMock } from '../__mocks__/create-product.mock';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
-import { updateProductMock } from '../__mock__/update-product.mock';
+import { updateProductMock } from '../__mocks__/update-product.mock';
 
 describe('ProductController', () => {
   let controller: ProductController;
