@@ -42,7 +42,7 @@ describe('OrderProductService', () => {
       orderMock.id,
       orderProductMock.price,
       orderProductMock.amount,
-    )
+    );
     expect(orderProduct).toEqual(orderProductMock);
     expect(spy.mock.calls[0][0].productId).toEqual(productMock.id);
     expect(spy.mock.calls[0][0].orderId).toEqual(orderMock.id);
@@ -51,7 +51,7 @@ describe('OrderProductService', () => {
   });
 
   it('should return exception in error DB', async () => {
-   jest.spyOn(orderProductRepository, 'save').mockRejectedValue(new Error());
+    jest.spyOn(orderProductRepository, 'save').mockRejectedValue(new Error());
 
     expect(
       service.createOrderProduct(
@@ -59,7 +59,7 @@ describe('OrderProductService', () => {
         orderMock.id,
         orderProductMock.price,
         orderProductMock.amount,
-      )
+      ),
     ).rejects.toThrowError();
   });
 });

@@ -4,7 +4,10 @@ import { Repository } from 'typeorm';
 import { PaymentEntity } from '../entities/payment.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { paymentMock } from '../__mocks__/payment.mock';
-import { createOrderCreditCardMock, createOrderPixMock } from '../../order/__mocks__/create-order.mock';
+import {
+  createOrderCreditCardMock,
+  createOrderPixMock,
+} from '../../order/__mocks__/create-order.mock';
 import { cartMock } from '../../cart/__mocks__/cart.mock';
 import { productMock } from '../../product/__mocks__/product.mock';
 import { paymentPixMock } from '../__mocks__/payment-pix.mock';
@@ -48,7 +51,7 @@ describe('PaymentService', () => {
     const payment = await service.createPayment(
       createOrderPixMock,
       [productMock],
-      cartMock
+      cartMock,
     );
 
     const savePayment: PaymentPixEntity = spy.mock
@@ -64,7 +67,7 @@ describe('PaymentService', () => {
     const payment = await service.createPayment(
       createOrderCreditCardMock,
       [productMock],
-      cartMock
+      cartMock,
     );
 
     const savePayment: PaymentCreditCardEntity = spy.mock
@@ -72,7 +75,8 @@ describe('PaymentService', () => {
 
     expect(payment).toEqual(paymentMock);
     expect(savePayment.amountPayments).toEqual(
-      paymentCreditCardMock.amountPayments);
+      paymentCreditCardMock.amountPayments,
+    );
   });
 
   it('should return exception in not send date', async () => {
@@ -88,11 +92,11 @@ describe('PaymentService', () => {
   });
 
   it('should return final price 0 in cartProduct undefined', async () => {
-      const spy = jest.spyOn(paymentRepository, 'save');
-      await service.createPayment(
+    const spy = jest.spyOn(paymentRepository, 'save');
+    await service.createPayment(
       createOrderCreditCardMock,
       [productMock],
-      cartMock
+      cartMock,
     );
 
     const savePayment: PaymentCreditCardEntity = spy.mock
@@ -102,14 +106,11 @@ describe('PaymentService', () => {
   });
 
   it('should return final price send cartProduct', async () => {
-      const spy = jest.spyOn(paymentRepository, 'save');
-      await service.createPayment(
-      createOrderCreditCardMock,
-      [productMock], {
-        ...cartMock,
-        cartProduct: [cartProductMock],
-      }
-    );
+    const spy = jest.spyOn(paymentRepository, 'save');
+    await service.createPayment(createOrderCreditCardMock, [productMock], {
+      ...cartMock,
+      cartProduct: [cartProductMock],
+    });
 
     const savePayment: PaymentCreditCardEntity = spy.mock
       .calls[0][0] as PaymentCreditCardEntity;
@@ -118,14 +119,11 @@ describe('PaymentService', () => {
   });
 
   it('should return all data in save payment', async () => {
-      const spy = jest.spyOn(paymentRepository, 'save');
-      await service.createPayment(
-      createOrderCreditCardMock,
-      [productMock], {
-        ...cartMock,
-        cartProduct: [cartProductMock],
-      }
-    );
+    const spy = jest.spyOn(paymentRepository, 'save');
+    await service.createPayment(createOrderCreditCardMock, [productMock], {
+      ...cartMock,
+      cartProduct: [cartProductMock],
+    });
 
     const savePayment: PaymentCreditCardEntity = spy.mock
       .calls[0][0] as PaymentCreditCardEntity;

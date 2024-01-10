@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -20,9 +19,8 @@ export class OrderController {
   @UsePipes(ValidationPipe)
   async createOrder(
     @Body() createOrderDto: CreateOrderDto,
-    @Param('cartId') cartId: number,
     @UserId() userId: number,
-  ) {
+  ): Promise<OrderEntity> {
     return this.orderSevice.createOrder(createOrderDto, userId);
   }
 
