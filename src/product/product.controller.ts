@@ -12,7 +12,7 @@ import {
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
 import { ProductService } from './product.service';
-import { ReturnProduct } from './dtos/return-product.dto';
+import { ReturnProductDto } from './dtos/return-product.dto';
 import { ProductEntity } from './entities/product.entity';
 import { CreateProductDto } from './dtos/create-product.dto';
 import { DeleteResult } from 'typeorm';
@@ -24,9 +24,9 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async findAll(): Promise<ReturnProduct[]> {
+  async findAll(): Promise<ReturnProductDto[]> {
     return (await this.productService.findAll([], true)).map(
-      (product) => new ReturnProduct(product),
+      (product) => new ReturnProductDto(product),
     );
   }
 

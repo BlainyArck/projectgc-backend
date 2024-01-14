@@ -1,5 +1,5 @@
 import { ReturnCartDto } from '../../cart/dtos/return-cart.dto';
-import { ReturnProduct } from '../../product/dtos/return-product.dto';
+import { ReturnProductDto } from '../../product/dtos/return-product.dto';
 import { CartProductEntity } from '../entities/cart-product.entity';
 
 export class ReturnCartProductDto {
@@ -7,7 +7,7 @@ export class ReturnCartProductDto {
   cartId: number;
   productId: number;
   amount: number;
-  product: ReturnProduct;
+  product: ReturnProductDto;
   cart?: ReturnCartDto;
 
   constructor(cartProduct: CartProductEntity) {
@@ -16,7 +16,7 @@ export class ReturnCartProductDto {
     this.productId = cartProduct.amount;
     this.amount = cartProduct.amount;
     this.product = cartProduct.product
-      ? new ReturnProduct(cartProduct.product)
+      ? new ReturnProductDto(cartProduct.product)
       : undefined;
     this.cart = cartProduct.cart
       ? new ReturnCartDto(cartProduct.cart)

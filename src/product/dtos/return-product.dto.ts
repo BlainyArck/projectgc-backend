@@ -2,7 +2,7 @@ import { ReturnCategory } from '../../category/dtos/return-category.dto';
 import { ReturnCartDto } from '../../cart/dtos/return-cart.dto';
 import { ProductEntity } from '../entities/product.entity';
 
-export class ReturnProduct {
+export class ReturnProductDto {
   id: number;
   name: string;
   price: number;
