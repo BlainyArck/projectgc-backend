@@ -4,6 +4,6 @@ export const stateMock: StateEntity = {
   createdAt: new Date(),
   id: 1777,
   name: 'State',
-  uf: '',
+  uf: 'GO',
   updatedAt: new Date(),
 };
