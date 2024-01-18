@@ -7,10 +7,13 @@ import { ReturnCepDto } from './dtos/return-cep.dto';
 import { CityEntity } from '../city/entities/city.entity';
 import { Client } from 'nestjs-soap';
 import { ResponsePriceCorreios } from './dtos/response-price-correios';
+import { CdFormatEnum } from './enums/cd-format.enum';
+import { SizeProductDto } from './dtos/size-product.dto';
 
 @Injectable()
 export class CorreiosService {
     URL_CORREIOS = process.env.URL_CEP_CORREIOS;
+    CEP_COMPANY = process.env.CEP_COMPANY;
     constructor(
         @Inject('SOAP_CORREIOS') private readonly soapClient: Client,
         private readonly httpService: HttpService,
@@ -39,23 +42,27 @@ export class CorreiosService {
         return new ReturnCepDto(returnCep, city?.id, city?.state?.id);
     }
 
-    async priceDelivery(): Promise<ResponsePriceCorreios> {
+    async priceDelivery(
+        cdService: string, 
+        cep: string,
+        sizeProduct: SizeProductDto,
+    ): Promise<ResponsePriceCorreios> {
         return new Promise((resolve) => {
             this.soapClient.CalcPrecoPrazo(
                 {
-                    nCdServico: '40010',
-                    sCepOrigem: '22270010',
-                    sCepDestino: '89010000',
-                    nVlPeso: 2,
-                    nCdFormato: 1,
-                    nVlComprimento: 30,
-                    nVlAltura: 30,
-                    nVlLargura: 30,
-                    nVlDiametro: 30,
+                    nCdServico: cdService,
+                    sCepOrigem: this.CEP_COMPANY,
+                    sCepDestino: cep,
+                    cDFormato: CdFormatEnum.BOX,
+                    nVlPeso: sizeProduct.wight,
+                    nVlComprimento: sizeProduct.length,
+                    nVlAltura: sizeProduct.height,
+                    nVlLargura: sizeProduct.width,
+                    nVlDiametro: sizeProduct.diameter,
                     nCdEmpresa: '',
                     sDsSenha: '',
                     sCdMaoPropria: 'N',
-                    nVlValorDeclarado: 0,
+                    nVlValorDeclarado: sizeProduct.productValue < 25 ? 25 : sizeProduct.productValue,
                     sCdAvisoRecebimento: 'N',
                 }, (_, res: ResponsePriceCorreios) => {
                 if (res){
