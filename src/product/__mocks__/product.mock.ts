@@ -9,4 +9,9 @@ export const productMock: ProductEntity = {
   name: 'gol',
   price: 77.7,
   updatedAt: new Date(),
+  diameter: 0,
+  height: 0,
+  length: 0,
+  weight: 0,
+  width: 0,
 };
