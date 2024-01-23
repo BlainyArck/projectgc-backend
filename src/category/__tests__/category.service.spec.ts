@@ -8,6 +8,9 @@ import { createCategoryMock } from '../__mocks__/create-category.mock';
 import { ProductService } from '../../product/product.service';
 import { countProductMock } from '../../product/__mocks__/count-product.mock';
 import { ReturnCategory } from '../dtos/return-category.dto';
+import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
+import { productMock } from '../../product/__mocks__/product.mock';
+import { BadRequestException } from '@nestjs/common';
 
 describe('CategoryService', () => {
   let service: CategoryService;
@@ -30,6 +33,7 @@ describe('CategoryService', () => {
             findOne: jest.fn().mockResolvedValue(categoryMock),
             find: jest.fn().mockResolvedValue([categoryMock]),
             save: jest.fn().mockResolvedValue(categoryMock),
+            delete: jest.fn().mockResolvedValue(returnDeleteMock),
           },
         },
       ],
@@ -101,4 +105,33 @@ describe('CategoryService', () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue(undefined);
     expect(service.findCategoryById(categoryMock.id)).rejects.toThrowError();
   });
+
+  it('should return delete result in success', async () => {
+    const deleteResult = await service.deleteCategory(categoryMock.id);
+    expect(deleteResult).toEqual(returnDeleteMock);
+  });
+
+  it('should send relations in request findOne', async () => {
+    const spy = jest.spyOn(categoryRepository, 'findOne');
+    await service.deleteCategory(categoryMock.id);
+
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: categoryMock.id,
+      },
+      relations: {
+        products: true,
+      },
+    });
+  });
+
+  it.skip('should return error if category width relations', async () => {
+    jest.spyOn(categoryRepository, 'findOne').mockResolvedValue({
+      ...categoryMock,
+      products: productMock,
+    });
+
+    expect(service.deleteCategory(categoryMock.id)).rejects.toThrowError(BadRequestException);
+  });
+
 });
