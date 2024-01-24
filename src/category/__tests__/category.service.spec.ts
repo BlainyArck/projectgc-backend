@@ -129,7 +129,7 @@ describe('CategoryService', () => {
   it.skip('should return error if category width relations', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue({
       ...categoryMock,
-      products: productMock,
+      products: [productMock],
     });
 
     expect(service.deleteCategory(categoryMock.id)).rejects.toThrowError(BadRequestException);
