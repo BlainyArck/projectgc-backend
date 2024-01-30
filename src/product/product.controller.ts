@@ -19,7 +19,7 @@ import { CreateProductDto } from './dtos/create-product.dto';
 import { DeleteResult } from 'typeorm';
 import { UpdateProductDto } from './dtos/update-product.dto';
 import { ReturnPriceDeliveryDto } from './dtos/return-price-delivery.dto';
-import { Pagination } from 'src/dtos/pagination.dto';
+import { Pagination } from '../dtos/pagination.dto';
 
 @Controller('product')
 export class ProductController {
