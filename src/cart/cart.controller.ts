@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Res,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -35,10 +36,19 @@ export class CartController {
   }
 
   @Get()
-  async findCartByUserId(@UserId() userId: number): Promise<ReturnCartDto> {
-    return new ReturnCartDto(
-      await this.cartService.findCartByUserId(userId, true),
-    );
+  async findCartByUserId(
+    @UserId() userId: number, 
+    @Res({ passthrough: true }) res?: Response
+    ): Promise<ReturnCartDto> {
+      const cart = await this.cartService
+        .findCartByUserId(userId, true)
+        .catch(() => undefined);
+
+      if (cart) {
+        return cart;
+      }
+
+      return;
   }
 
   @Delete()

@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Res,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -30,8 +31,19 @@ export class OrderController {
   }
 
   @Get()
-  async findOrdersByUserId(@UserId() userId: number): Promise<OrderEntity[]> {
-    return this.orderSevice.findOrdersByUserId(userId);
+  async findOrdersByUserId(
+    @UserId() userId: number,
+    @Res({ passthrough: true }) res?: Response
+    ): Promise<OrderEntity[]> {
+    const orders = await this.orderSevice
+      .findOrdersByUserId(userId)
+      .catch(() => undefined);
+
+      if(orders){
+        return orders;
+      }
+
+    return ;
   }
 
   @Roles(UserType.Admin, UserType.Root)
